@@ -1,7 +1,10 @@
-;; .emacs
+;;; init.el --- Emacs configuration
 
-;; Melpa
+;;; BEGIN INSTALL PACKAGES
+
 (require 'package)
+
+;;; Melpa
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
@@ -18,26 +21,34 @@ There are two things you can do about this warning:
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+
 (package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
-;; https://www.reddit.com/r/emacs/comments/4fqu0a/automatically_install_packages_on_startup/
-;; install required packages
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
-(setq use-package-always-ensure t)
-; then define packages you use
-;;(use-package ace-jump-mode
-;;  :bind ("M-SPC" . ace-jump-mode))
-(use-package flycheck)
-(use-package nose)
+(defvar myPackages
+  '(better-defaults
+    material-theme
+    elpy
+    nose
+    flycheck))
 
-;; showing lines and columns
-(setq column-number-mode t)
+(mapc #'(lambda (package)
+    (unless (package-installed-p package)
+      (package-install package)))
+      myPackages)
 
-;; no tabs
-(setq-default indent-tabs-mode nil)
+;;; END INSTALL PACKAGES
+
+;;; BEGIN BASIC CUSTOMIZATION
+
+(setq inhibit-startup-message t) ;; hide the startup message
+(load-theme 'material t) ;; load material theme
+(global-linum-mode t) ;; enable line numbers globally
+(setq column-number-mode t) ;; showing lines and columns
+(setq-default indent-tabs-mode nil) ;; no tabs
+
+;;; END BASIC CUSTOMIZATION
 
 ;;
 ;; Key-bindings
@@ -66,6 +77,14 @@ There are two things you can do about this warning:
            ("%b - Dir:  " default-directory) ))))))
 
 
+;; Enable el-py
+(elpy-enable)
+
+;; Enable flycheck for elpy
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
 ;; Enable flycheck
 ;; http://code.litomisky.com/2014/10/24/getting-with-pylint-in-emacs/
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -82,6 +101,9 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;; pylint as default python checker
+(add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
+
 
 ;; nose
 (require 'nose)
