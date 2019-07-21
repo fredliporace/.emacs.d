@@ -31,6 +31,7 @@ There are two things you can do about this warning:
     material-theme
     elpy
     nose
+    yaml-mode
     flycheck))
 
 (mapc #'(lambda (package)
@@ -104,8 +105,12 @@ There are two things you can do about this warning:
 ;; pylint as default python checker
 (add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
 
-
 ;; nose
 (require 'nose)
+;; to activate nose keybindings
+(add-hook 'python-mode-hook (lambda () (nose-mode t)))
 ;;next line only for people with non-eco non-global test runners
 ;;(add-to-list 'nose-project-names "my/crazy/runner")
+
+(provide 'init)
+;;; init.el ends here
