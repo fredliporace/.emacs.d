@@ -32,7 +32,9 @@ There are two things you can do about this warning:
     elpy
     nose
     yaml-mode
-    flycheck))
+    markdown-mode
+    flycheck
+    use-package))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -111,6 +113,17 @@ There are two things you can do about this warning:
 (add-hook 'python-mode-hook (lambda () (nose-mode t)))
 ;;next line only for people with non-eco non-global test runners
 ;;(add-to-list 'nose-project-names "my/crazy/runner")
+
+;; markdown
+;; @todo check if 'use-package is used only here
+(require 'use-package)
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 (provide 'init)
 ;;; init.el ends here
