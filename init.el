@@ -79,6 +79,9 @@ There are two things you can do about this warning:
                                                (revert-buffer-function " %b"
            ("%b - Dir:  " default-directory) ))))))
 
+;; yank over selection
+;; https://stackoverflow.com/questions/2627289/how-to-replace-a-region-in-emacs-with-yank-buffer-contents
+(delete-selection-mode 1)
 
 ;; Enable el-py
 (elpy-enable)
@@ -111,6 +114,15 @@ There are two things you can do about this warning:
 (require 'nose)
 ;; to activate nose keybindings
 (add-hook 'python-mode-hook (lambda () (nose-mode t)))
+;; had to explicitly define the mappings, the previous line
+;; did not activate the default key bindings
+(define-key nose-mode-map "\C-ca" 'nosetests-all)
+(define-key nose-mode-map "\C-cm" 'nosetests-module)
+(define-key nose-mode-map "\C-c." 'nosetests-one)
+(define-key nose-mode-map "\C-cc" 'nosetests-again)
+(define-key nose-mode-map "\C-cpa" 'nosetests-pdb-all)
+(define-key nose-mode-map "\C-cpm" 'nosetests-pdb-module)
+(define-key nose-mode-map "\C-cp." 'nosetests-pdb-one)
 ;;next line only for people with non-eco non-global test runners
 ;;(add-to-list 'nose-project-names "my/crazy/runner")
 
