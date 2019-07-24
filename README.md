@@ -6,16 +6,31 @@ My emacs configuration
 
 ### general
 
+```
 M-x comment-region
 M-x uncomment-region
 
+```
+
 ### nose
 ```
-(define-key nose-mode-map "\C-ca" 'nosetests-all)
-(define-key nose-mode-map "\C-cm" 'nosetests-module)
-(define-key nose-mode-map "\C-c." 'nosetests-one)
-(define-key nose-mode-map "\C-cc" 'nosetests-again)
-(define-key nose-mode-map "\C-cpa" 'nosetests-pdb-all)
-(define-key nose-mode-map "\C-cpm" 'nosetests-pdb-module)
-(define-key nose-mode-map "\C-cp." 'nosetests-pdb-one)
+\C-ca nosetests-all
+\C-cm nosetests-module
+\C-c. nosetests-one
+\C-cc nosetests-again
+\C-cpa nosetests-pdb-all
+\C-cpm nosetests-pdb-module
+\C-cp. nosetests-pdb-one
 ```
+
+## markdown
+
+Start an emacs' web server with `M-x httpd-start`.
+
+Start impatient mode in the buffers you're interested to live preview: `M-x impatient-mode`.
+
+Open your browser to `localhost:8080/imp`. You'll see the list of buffers with the mode enabled. Click on one: you see live rendering of the buffer.
+
+To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET markdown-html RET`
+
+

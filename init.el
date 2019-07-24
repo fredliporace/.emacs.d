@@ -33,6 +33,7 @@ There are two things you can do about this warning:
     nose
     yaml-mode
     markdown-mode
+    impatient-mode
     flycheck
     use-package))
 
@@ -99,7 +100,7 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (nose flycheck flx-isearch)))
+ '(package-selected-packages (quote (impatient-mode flymd nose flycheck flx-isearch)))
  '(safe-local-variable-values (quote ((py-indent-offset . 4)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -126,7 +127,7 @@ There are two things you can do about this warning:
 ;;next line only for people with non-eco non-global test runners
 ;;(add-to-list 'nose-project-names "my/crazy/runner")
 
-;; markdown
+;; markdown & friends
 ;; @todo check if 'use-package is used only here
 (require 'use-package)
 (use-package markdown-mode
@@ -136,6 +137,11 @@ There are two things you can do about this warning:
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+;;https://stackoverflow.com/questions/36183071/how-can-i-preview-markdown-in-emacs-in-real-time
+(defun markdown-html (buffer)
+  (princ (with-current-buffer buffer
+    (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+  (current-buffer)))
 
 (provide 'init)
 ;;; init.el ends here
