@@ -4,14 +4,6 @@ My emacs configuration
 
 ## Key bindings
 
-### general
-
-```
-M-x comment-region
-M-x uncomment-region
-
-```
-
 ### nose
 ```
 \C-ca nosetests-all
@@ -23,6 +15,20 @@ M-x uncomment-region
 \C-cp. nosetests-pdb-one
 ```
 
+## Useful commands
+
+### general
+
+```
+M-x comment-region
+M-x uncomment-region
+```
+
+```
+M-x highlight-identation-mode
+M-x aj-toggle-fold
+```
+
 ## markdown
 
 Start an emacs' web server with `M-x httpd-start`.
@@ -32,5 +38,3 @@ Start impatient mode in the buffers you're interested to live preview: `M-x impa
 Open your browser to `localhost:8080/imp`. You'll see the list of buffers with the mode enabled. Click on one: you see live rendering of the buffer.
 
 To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET markdown-html RET`
-
-
