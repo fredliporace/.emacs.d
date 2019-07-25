@@ -2,9 +2,23 @@
 
 My emacs configuration
 
-## Key bindings
+## key bindings
+
+### window management
+
+```
+C-x 0: delete selected window
+C-x 1: delete all windows except selected
+C-x 2: window above
+C-x 3: window below
+```
+
+```
+M-x switch-to-last-window
+```
 
 ### nose
+
 ```
 \C-ca nosetests-all
 \C-cm nosetests-module
@@ -15,7 +29,16 @@ My emacs configuration
 \C-cp. nosetests-pdb-one
 ```
 
-## Useful commands
+### shell
+
+```
+M-x shell, create if not exists
+C-u M-x shell, new window shell
+C-<UP>, earlier command
+C-<DOWN>, next later old command
+```
+
+## useful commands
 
 ### general
 

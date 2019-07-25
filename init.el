@@ -84,6 +84,17 @@ There are two things you can do about this warning:
 ;; https://stackoverflow.com/questions/2627289/how-to-replace-a-region-in-emacs-with-yank-buffer-contents
 (delete-selection-mode 1)
 
+;; toggle to previous window
+;; https://emacs.stackexchange.com/questions/7409/is-there-a-generic-toggle-previous-window-function
+(defun switch-to-last-window ()
+  (interactive)
+  (let ((win (get-mru-window t t t)))
+    (unless win (error "Last window not found."))
+    (let ((frame (window-frame win)))
+      (raise-frame frame)
+      (select-frame frame)
+      (select-window win))))
+
 ;; Enable el-py
 (elpy-enable)
 
