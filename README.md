@@ -11,10 +11,15 @@ C-x 0: delete selected window
 C-x 1: delete all windows except selected
 C-x 2: window above
 C-x 3: window below
+C-x ^^: increase window height
 ```
 
 ```
 M-x switch-to-last-window
+```
+
+```
+M-p: ace-window
 ```
 
 ### nose

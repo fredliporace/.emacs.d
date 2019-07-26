@@ -35,6 +35,7 @@ There are two things you can do about this warning:
     markdown-mode
     impatient-mode
     flycheck
+    ace-window
     use-package))
 
 (mapc #'(lambda (package)
@@ -165,6 +166,9 @@ There are two things you can do about this warning:
       (set-selective-display
        (if selective-display nil (or col 1))))))
 (global-set-key [(M C i)] 'aj-toggle-fold)
+
+;; ace window
+(global-set-key (kbd "M-p") 'ace-window)
 
 (provide 'init)
 ;;; init.el ends here
