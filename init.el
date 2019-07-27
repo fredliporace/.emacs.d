@@ -168,7 +168,9 @@ There are two things you can do about this warning:
 (global-set-key [(M C i)] 'aj-toggle-fold)
 
 ;; ace window
-(global-set-key (kbd "M-p") 'ace-window)
+;; was orignally using M-p but this conflicts with 'previous error' for *compiling*
+;; and *nose*
+(global-set-key (kbd "M-o") 'ace-window)
 
 (provide 'init)
 ;;; init.el ends here
