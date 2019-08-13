@@ -73,6 +73,10 @@ There are two things you can do about this warning:
 (global-set-key [f11] 'add-change-log-entry-other-window)
 (global-set-key [f12] 'next-multiframe-window)
 (global-set-key "\C-z" 'undo)
+;; toggle cpp/hpp files
+(global-set-key "\C-t" 'ff-find-other-file)
+
+
 
 ;; set title of frame
 (setq-default frame-title-format
