@@ -19,7 +19,11 @@ M-x switch-to-last-window
 ```
 
 ```
-M-p: ace-window
+M-o: ace-window
+```
+
+```
+C-t: switch cpp/hpp
 ```
 
 ### nose
