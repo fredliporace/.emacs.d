@@ -51,7 +51,16 @@ There are two things you can do about this warning:
 (load-theme 'material t) ;; load material theme
 (global-linum-mode t) ;; enable line numbers globally
 (setq column-number-mode t) ;; showing lines and columns
+;; https://stackoverflow.com/questions/11700934/emacs-set-and-toggle-show-trailing-whitespace
+(setq-default show-trailing-whitespace t) ;; showing trailing whitespace
+;; https://stackoverflow.com/questions/19174302/emacs-only-delete-trailing-whitespace-while-saving-in-programming-mode
+(add-hook 'write-file-hooks 'delete-trailing-whitespace) ;; remove trailing whitespace when saving
 (setq-default indent-tabs-mode nil) ;; no tabs
+
+;; Compilation output
+;; https://stackoverflow.com/questions/4657142/how-do-i-encourage-emacs-to-follow-the-compilation-buffer
+(setq compilation-scroll-output t)
+;;(setq compilation-scroll-output t)
 
 ;;; END BASIC CUSTOMIZATION
 
@@ -117,7 +126,14 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages (quote (impatient-mode flymd nose flycheck flx-isearch)))
- '(safe-local-variable-values (quote ((py-indent-offset . 4)))))
+ '(safe-local-variable-values
+   (quote
+    ((eval custom-set-variables
+           (quote
+            (flycheck-python-pycompile-executable "python3"))
+           (quote
+            (flycheck-python-pylint-executable "python3")))
+     (py-indent-offset . 4)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
