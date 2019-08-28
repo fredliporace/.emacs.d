@@ -4,6 +4,14 @@ My emacs configuration
 
 ## key bindings
 
+```
+C-x C-+: increase font size
+C-x C--: decrease font size
+C-x C-0: restore font size
+C-x C-o: delete-blank-lines
+M-\: delete-horizontal-space
+```
+
 ### window management
 
 ```
