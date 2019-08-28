@@ -78,3 +78,20 @@ Start impatient mode in the buffers you're interested to live preview: `M-x impa
 Open your browser to `localhost:8080/imp`. You'll see the list of buffers with the mode enabled. Click on one: you see live rendering of the buffer.
 
 To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET markdown-html RET`
+
+## snippets
+
+### setting vars for flycheck in .dir-locals.el
+
+```
+;;; https://stackoverflow.com/questions/37720869/emacs-how-do-i-set-flycheck-to-python-3
+;;; https://stackoverflow.com/questions/16237506/wrong-type-argument-listp-eval-after-load-in-dir-locals-el
+((nil . ((eval .
+               (custom-set-variables
+                '(flycheck-python-pycompile-executable "python3")
+                '(flycheck-python-pylint-executable "python3")))))
+ (c++-mode
+  (flycheck-gcc-include-path "/home/liporace/workspace/ms301/sync_loss_per_band/sandbox/inpe/amazonia" "/home/liporace/workspace/ms301/sync_loss_per_band/install/include/" "/usr/local/include/terralib/kernel" "/usr/local/include/terralib/shapelib" "/usr/local/lib/qt3/include")
+  (flycheck-gcc-definitions "HAVE_CONFIG_H")
+  ))
+```
