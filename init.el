@@ -36,6 +36,7 @@ There are two things you can do about this warning:
     impatient-mode
     flycheck
     ace-window
+    irony
     use-package))
 
 (mapc #'(lambda (package)
@@ -125,6 +126,9 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flycheck-checker-error-threshold 1000)
+ '(flycheck-python-pycompile-executable "python3")
+ '(flycheck-python-pylint-executable "python3")
  '(package-selected-packages (quote (impatient-mode flymd nose flycheck flx-isearch)))
  '(safe-local-variable-values
    (quote
@@ -191,6 +195,24 @@ There are two things you can do about this warning:
 ;; was orignally using M-p but this conflicts with 'previous error' for *compiling*
 ;; and *nose*
 (global-set-key (kbd "M-o") 'ace-window)
+
+;; disable C-x C-c
+;; (global-unset-key (kbd "C-x C-c"))
+
+;; irony, company-irony
+;; does not work on CentOS6, requires update CMake
+;; https://github.com/Sarcasm/irony-mode
+;; https://github.com/Sarcasm/company-irony
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;; Windows performance tweaks
+(when (boundp 'w32-pipe-read-delay)
+  (setq w32-pipe-read-delay 0))
+;; Set the buffer size to 64K on Windows (from the original 4K)
+(when (boundp 'w32-pipe-buffer-size)
+  (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
 
 (provide 'init)
 ;;; init.el ends here
