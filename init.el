@@ -1,5 +1,9 @@
 ;;; init.el --- Emacs configuration
 
+;;; Adding path to packages included in the git repo,
+;;; typically these are the ones not available from MELPA
+(add-to-list 'load-path "~/.emacs.d/nomelpa/")
+
 ;;; BEGIN INSTALL PACKAGES
 
 (require 'package)
@@ -30,7 +34,6 @@ There are two things you can do about this warning:
   '(better-defaults
     material-theme
     elpy
-    nose
     yaml-mode
     markdown-mode
     impatient-mode
