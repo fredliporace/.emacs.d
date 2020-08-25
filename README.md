@@ -46,6 +46,11 @@ C-t: switch cpp/hpp
 \C-cp. nosetests-pdb-one
 ```
 
+To use pdb within nose:
+```python
+import nose.tools; nose.tools.set_trace()
+```
+
 ### shell
 
 ```
