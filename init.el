@@ -40,6 +40,7 @@ There are two things you can do about this warning:
     flycheck
     ace-window
     irony
+    pytest
     use-package))
 
 (mapc #'(lambda (package)
@@ -233,6 +234,9 @@ There are two things you can do about this warning:
             (define-key python-mode-map "(" 'electric-pair)
             (define-key python-mode-map "[" 'electric-pair)
             (define-key python-mode-map "{" 'electric-pair)))
+
+;; Pytest
+(use-package pytest)
 
 (provide 'init)
 ;;; init.el ends here
