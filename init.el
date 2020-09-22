@@ -4,6 +4,8 @@
 
 (require 'package)
 
+;;(setq package-check-signature nil)
+
 ;;; Melpa
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
