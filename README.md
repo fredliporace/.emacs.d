@@ -74,6 +74,12 @@ M-x highlight-identation-mode
 M-x aj-toggle-fold
 ```
 
+### current function
+
+```
+M-x which-function-mode
+```
+
 ## markdown
 
 Start an emacs' web server with `M-x httpd-start`.
@@ -99,4 +105,22 @@ To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET mar
   (flycheck-gcc-include-path "/home/liporace/workspace/ms301/sync_loss_per_band/sandbox/inpe/amazonia" "/home/liporace/workspace/ms301/sync_loss_per_band/install/include/" "/usr/local/include/terralib/kernel" "/usr/local/include/terralib/shapelib" "/usr/local/lib/qt3/include")
   (flycheck-gcc-definitions "HAVE_CONFIG_H")
   ))
+```
+
+## python
+
+Go to definition:
+```
+elpy-goto-definition M-.
+```
+
+Go back:
+```
+xref-pop-marker-stack M-,
+```
+
+List of class and function signatures
+```
+elpy-occur-definitions C-c C-o
+
 ```
