@@ -248,6 +248,7 @@ There are two things you can do about this warning:
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch)
 
 (provide 'init)
 ;;; init.el ends here
