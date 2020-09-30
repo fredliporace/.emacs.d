@@ -1,5 +1,10 @@
 ;;; init.el --- Emacs configuration
 
+;; Note that you'll need to run M-x package-refresh-contents
+;; or M-x package-list-packages to ensure that Emacs has
+;; fetched the MELPA package list before you can install
+;; packages with M-x package-install or similar.
+
 ;;; Adding path to packages included in the git repo,
 ;;; typically these are the ones not available from MELPA
 (add-to-list 'load-path "~/.emacs.d/nomelpa/")
@@ -43,6 +48,7 @@ There are two things you can do about this warning:
     ace-window
     irony
     pytest
+    magit
     use-package))
 
 (mapc #'(lambda (package)
@@ -239,6 +245,9 @@ There are two things you can do about this warning:
 
 ;; Pytest
 (use-package pytest)
+
+;; magit
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (provide 'init)
 ;;; init.el ends here
