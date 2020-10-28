@@ -107,6 +107,16 @@ To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET mar
   ))
 ```
 
+# Development
+
+## All languages
+
+Hide/Show block
+```
+C-a s
+C-a h
+```
+
 ## python
 
 Go to definition:

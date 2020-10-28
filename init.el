@@ -250,5 +250,16 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch)
 
+;; hideshow
+(defun my-hide-all()
+  (interactive)
+  (hs-minor-mode)
+  (hs-hide-all))
+(add-hook 'prog-mode-hook 'my-hide-all)
+;;hiding block of code
+(global-set-key (kbd "C-c h") (kbd "C-c @ C-h"))
+;;show block of code
+(global-set-key (kbd "C-c s") (kbd "C-c @ C-s"))
+
 (provide 'init)
 ;;; init.el ends here
