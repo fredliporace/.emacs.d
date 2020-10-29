@@ -113,8 +113,8 @@ To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET mar
 
 Hide/Show block
 ```
-C-a s
-C-a h
+C-c s
+C-c h
 ```
 
 ## python
