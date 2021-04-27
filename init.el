@@ -66,8 +66,14 @@ There are two things you can do about this warning:
 (setq column-number-mode t) ;; showing lines and columns
 ;; https://stackoverflow.com/questions/11700934/emacs-set-and-toggle-show-trailing-whitespace
 (setq-default show-trailing-whitespace t) ;; showing trailing whitespace
+
 ;; https://stackoverflow.com/questions/19174302/emacs-only-delete-trailing-whitespace-while-saving-in-programming-mode
-(add-hook 'write-file-hooks 'delete-trailing-whitespace) ;; remove trailing whitespace when saving
+;;(add-hook 'write-file-hooks 'delete-trailing-whitespace) ;; remove trailing whitespace when saving
+(add-hook 'before-save-hook 'my-prog-nuke-trailing-whitespace)
+(defun my-prog-nuke-trailing-whitespace ()
+  (when (derived-mode-p 'prog-mode)
+    (delete-trailing-whitespace)))
+
 (setq-default indent-tabs-mode nil) ;; no tabs
 
 ;; Compilation output
@@ -144,7 +150,8 @@ There are two things you can do about this warning:
  '(package-selected-packages (quote (impatient-mode flymd nose flycheck flx-isearch)))
  '(safe-local-variable-values
    (quote
-    ((eval custom-set-variables
+    ((setq write-file-hooks nil)
+     (eval custom-set-variables
            (quote
             (flycheck-python-pycompile-executable "python3"))
            (quote
