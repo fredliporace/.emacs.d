@@ -165,6 +165,8 @@ There are two things you can do about this warning:
  )
 ;; pylint as default python checker
 (add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
+;; gcc as default C++ checker
+(add-hook 'c++-mode-hook #'(lambda () (setq flycheck-checker 'c/c++-gcc)))
 
 ;; nose
 (require 'nose)
