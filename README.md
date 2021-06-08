@@ -107,6 +107,11 @@ To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET mar
   ))
 ```
 
+### remove all hooks for a given hook variable
+```
+(add-hook 'before-save-hook nil)
+```
+
 # Development
 
 ## All languages
