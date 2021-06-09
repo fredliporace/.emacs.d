@@ -122,6 +122,8 @@ C-c s
 C-c h
 ```
 
+Execute current buffer: `C-c C-c`
+
 ## python
 
 Go to definition:
