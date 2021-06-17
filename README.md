@@ -94,7 +94,7 @@ To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET mar
 
 ### setting vars for flycheck in .dir-locals.el
 
-```
+```lisp
 ;;; https://stackoverflow.com/questions/37720869/emacs-how-do-i-set-flycheck-to-python-3
 ;;; https://stackoverflow.com/questions/16237506/wrong-type-argument-listp-eval-after-load-in-dir-locals-el
 ((nil . ((eval .
@@ -107,9 +107,10 @@ To enable markdown conversion (on each buffer): `M-x imp-set-user-filter RET mar
   ))
 ```
 
-### remove all hooks for a given hook variable
-```
-(add-hook 'before-save-hook nil)
+### remove hooks for a given hook variable in a given mode (in .dir-locals.el)
+```lisp
+((markdown-mode
+  (eval remove-hook 'before-save-hook 'my-prog-nuke-trailing-whitespace)))
 ```
 
 # Development
