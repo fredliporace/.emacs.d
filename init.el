@@ -5,37 +5,74 @@
 ;; fetched the MELPA package list before you can install
 ;; packages with M-x package-install or similar.
 
+;;; This is not necessary anymore, was used to install node
 ;;; Adding path to packages included in the git repo,
 ;;; typically these are the ones not available from MELPA
-(add-to-list 'load-path "~/.emacs.d/nomelpa/")
+;;; (add-to-list 'load-path "~/.emacs.d/nomelpa/")
 
-;;; BEGIN INSTALL PACKAGES
+;; You will most likely need to adjust this font size for your system!
+(defvar efs/default-font-size 90)
+(defvar efs/default-variable-font-size 90)
 
+;; Make frame transparency overridable
+(defvar efs/frame-transparency '(90 . 90))
+
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+(defun efs/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                     (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
+;; Initialize package sources
 (require 'package)
 
-;;(setq package-check-signature nil)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
 ;;; Melpa
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  (when no-ssl
-    (warn "\
-Your version of Emacs does not support SSL connections,
-which is unsafe because it allows man-in-the-middle attacks.
-There are two things you can do about this warning:
-1. Install an Emacs version that does support SSL and be safe.
-2. Remove this warning from your init file so you won't see it again."))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+;; (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+;;                     (not (gnutls-available-p))))
+;;        (proto (if no-ssl "http" "https")))
+;;   (when no-ssl
+;;     (warn "\
+;; Your version of Emacs does not support SSL connections,
+;; which is unsafe because it allows man-in-the-middle attacks.
+;; There are two things you can do about this warning:
+;; 1. Install an Emacs version that does support SSL and be safe.
+;; 2. Remove this warning from your init file so you won't see it again."))
+;;   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+;;   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+;;   ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+;;   (when (< emacs-major-version 24)
+;;     ;; For important compatibility libraries like cl-lib
+;;     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
+
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
 
 (defvar myPackages
   '(better-defaults
@@ -61,9 +98,67 @@ There are two things you can do about this warning:
 ;;; BEGIN BASIC CUSTOMIZATION
 
 (setq inhibit-startup-message t) ;; hide the startup message
+
+(scroll-bar-mode -1)        ; Disable visible scrollbar
+(tool-bar-mode -1)          ; Disable the toolbar
+(tooltip-mode -1)           ; Disable tooltips
+(set-fringe-mode 10)        ; Give some breathing room
+(menu-bar-mode -1)          ; Disable the menu bar
+
+;; Set up the visible bell
+(setq visible-bell t)
+
+(column-number-mode) ;; showing lines and columns
+(global-display-line-numbers-mode t) ;; enable line numbers globally
+
+;; Set frame transparency
+(set-frame-parameter (selected-frame) 'alpha efs/frame-transparency)
+(add-to-list 'default-frame-alist `(alpha . ,efs/frame-transparency))
+(set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; (use-package general
+;;   :after evil
+;;   :config
+;;   (general-create-definer efs/leader-keys
+;;     :keymaps '(normal insert visual emacs)
+;;     :prefix "SPC"
+;;     :global-prefix "C-SPC")
+
+;;   (efs/leader-keys
+;;     "t"  '(:ignore t :which-key "toggles")
+;;     "tt" '(counsel-load-theme :which-key "choose theme")))
+
+(use-package counsel
+  :bind (("C-M-j" . 'counsel-switch-buffer)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  :config
+  (counsel-mode 1))
+
+
 (load-theme 'material t) ;; load material theme
-(global-linum-mode t) ;; enable line numbers globally
-(setq column-number-mode t) ;; showing lines and columns
 ;; https://stackoverflow.com/questions/11700934/emacs-set-and-toggle-show-trailing-whitespace
 (setq-default show-trailing-whitespace t) ;; showing trailing whitespace
 
@@ -139,15 +234,19 @@ There are two things you can do about this warning:
 ;; Enable flycheck
 ;; http://code.litomisky.com/2014/10/24/getting-with-pylint-in-emacs/
 (add-hook 'after-init-hook #'global-flycheck-mode)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-package-update-hide-results t)
+ '(auto-package-update-interval 7)
+ '(auto-package-update-prompt-before-update t)
  '(flycheck-checker-error-threshold 1000)
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
- '(package-selected-packages (quote (impatient-mode flymd nose flycheck flx-isearch)))
+ '(package-selected-packages '(impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
    (quote
     ((setq write-file-hooks nil)
@@ -163,26 +262,11 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
 ;; pylint as default python checker
 (add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
 ;; gcc as default C++ checker
 (add-hook 'c++-mode-hook #'(lambda () (setq flycheck-checker 'c/c++-gcc)))
-
-;; nose
-(require 'nose)
-;; to activate nose keybindings
-(add-hook 'python-mode-hook (lambda () (nose-mode t)))
-;; had to explicitly define the mappings, the previous line
-;; did not activate the default key bindings
-(define-key nose-mode-map "\C-ca" 'nosetests-all)
-(define-key nose-mode-map "\C-cm" 'nosetests-module)
-(define-key nose-mode-map "\C-c." 'nosetests-one)
-(define-key nose-mode-map "\C-cc" 'nosetests-again)
-(define-key nose-mode-map "\C-cpa" 'nosetests-pdb-all)
-(define-key nose-mode-map "\C-cpm" 'nosetests-pdb-module)
-(define-key nose-mode-map "\C-cp." 'nosetests-pdb-one)
-;;next line only for people with non-eco non-global test runners
-;;(add-to-list 'nose-project-names "my/crazy/runner")
 
 ;; markdown & friends
 ;; @todo check if 'use-package is used only here
@@ -243,7 +327,8 @@ There are two things you can do about this warning:
   (interactive)
   (if (eolp) (let (parens-require-spaces) (insert-pair))
     (self-insert-command 1)))
-;;  Python configuation
+
+;;  Python configuration
 (add-hook 'python-mode-hook
           (lambda ()
             (define-key python-mode-map "\"" 'electric-pair)
