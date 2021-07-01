@@ -2,7 +2,7 @@
 
 My emacs configuration
 
-## Windows notes
+## Windows native notes
 
 The ```.emacs.d``` must be cloned in ```C:\users\liporace\AppData\Roaming``` from git within Windows Power Shell (WPS).
 
