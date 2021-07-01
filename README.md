@@ -2,6 +2,10 @@
 
 My emacs configuration
 
+## Windows cygwin notes
+
+To install the fonts copy the ```.ttf``` files to ```/usr/share/fonts/microsoft``` and run ```/etc/postinstall/zp_fontconfig_cache_1.sh``` [reference](https://stackoverflow.com/questions/50748216/how-do-i-use-third-party-ttf-fonts-on-cygwinx-how-about-windows-fonts).
+
 ## Windows native notes
 
 The ```.emacs.d``` must be cloned in ```C:\users\liporace\AppData\Roaming``` from git within Windows Power Shell (WPS).
