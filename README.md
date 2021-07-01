@@ -17,6 +17,8 @@ Enter passphrase for ****:
 Identity added: ***
 ```
 
+Currently the push operation must be done from WPS.
+
 ## key bindings
 
 ```
