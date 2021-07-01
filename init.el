@@ -58,7 +58,7 @@
 
 (defvar myPackages
   '(better-defaults
-    material-theme
+    ;;material-theme ; old theme
     elpy
     yaml-mode
     markdown-mode
@@ -130,6 +130,17 @@
 ;;     "t"  '(:ignore t :which-key "toggles")
 ;;     "tt" '(counsel-load-theme :which-key "choose theme")))
 
+(use-package doom-themes
+  :init (load-theme 'doom-palenight t))
+
+;; NOTE: The first time you load your configuration on a new machine, you’ll need
+;; to run `M-x all-the-icons-install-fonts` so that mode line icons display correctly.
+(use-package all-the-icons)
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))
+
 (use-package counsel
   :bind (("C-M-j" . 'counsel-switch-buffer)
          :map minibuffer-local-map
@@ -140,7 +151,9 @@
   (counsel-mode 1))
 
 
-(load-theme 'material t) ;; load material theme
+;;Old theme configuration
+;;(load-theme 'material t) ;; load material theme
+
 ;; https://stackoverflow.com/questions/11700934/emacs-set-and-toggle-show-trailing-whitespace
 (setq-default show-trailing-whitespace t) ;; showing trailing whitespace
 
@@ -228,7 +241,8 @@
  '(flycheck-checker-error-threshold 1000)
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
- '(package-selected-packages '(impatient-mode flymd flycheck flx-isearch))
+ '(package-selected-packages
+   '(all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
    '((setq write-file-hooks nil)
      (eval custom-set-variables
