@@ -248,14 +248,11 @@
  '(flycheck-python-pylint-executable "python3")
  '(package-selected-packages '(impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
-   (quote
-    ((setq write-file-hooks nil)
+   '((setq write-file-hooks nil)
      (eval custom-set-variables
-           (quote
-            (flycheck-python-pycompile-executable "python3"))
-           (quote
-            (flycheck-python-pylint-executable "python3")))
-     (py-indent-offset . 4)))))
+           '(flycheck-python-pycompile-executable "python3")
+           '(flycheck-python-pylint-executable "python3"))
+     (py-indent-offset . 4))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

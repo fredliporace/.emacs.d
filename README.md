@@ -2,6 +2,21 @@
 
 My emacs configuration
 
+## Windows notes
+
+The ```.emacs.d``` must be cloned in ```C:\users\liporace\AppData\Roaming``` from git within Windows Power Shell (WPS).
+
+To start ```ssh-agent``` use also WPS:
+
+```
+PS C:\Arquivos de Programas\Git\cmd> .\start-ssh-agent.cmd
+Found ssh-agent at 12452
+Failed to find ssh-agent socket
+Starting ssh-agent:  done
+Enter passphrase for ****:
+Identity added: ***
+```
+
 ## key bindings
 
 ```
