@@ -5,3 +5,4 @@ session.*
 elpy
 /transient/
 /.last-package-update-day
+/projectile-bookmarks.eld
