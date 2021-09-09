@@ -217,6 +217,9 @@
   :after projectile
   :config (counsel-projectile-mode))
 
+;; To save register between sessions
+;; https://emacs.stackexchange.com/a/17475/31354
+(desktop-save-mode)
 
 ;;Old theme configuration
 ;;(load-theme 'material t) ;; load material theme

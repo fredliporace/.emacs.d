@@ -6,3 +6,5 @@ elpy
 /transient/
 /.last-package-update-day
 /projectile-bookmarks.eld
+/*.lock
+/.emacs.desktop
