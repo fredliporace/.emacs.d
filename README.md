@@ -55,23 +55,6 @@ M-o: ace-window
 C-t: switch cpp/hpp
 ```
 
-### nose
-
-```
-\C-ca nosetests-all
-\C-cm nosetests-module
-\C-c. nosetests-one
-\C-cc nosetests-again
-\C-cpa nosetests-pdb-all
-\C-cpm nosetests-pdb-module
-\C-cp. nosetests-pdb-one
-```
-
-To use pdb within nose:
-```python
-import nose.tools; nose.tools.set_trace()
-```
-
 ### shell
 
 ```
@@ -84,6 +67,19 @@ C-<DOWN>, next later old command
 ## useful commands
 
 ### general
+
+```
+M-x desktop-*
+```
+
+```
+C-x r w             write register
+C-x r j             jump to register
+```
+
+```
+M-x eval-region
+```
 
 ```
 M-x comment-region
@@ -161,5 +157,4 @@ xref-pop-marker-stack M-,
 List of class and function signatures
 ```
 elpy-occur-definitions C-c C-o
-
 ```

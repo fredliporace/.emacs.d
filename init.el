@@ -217,6 +217,23 @@
   :after projectile
   :config (counsel-projectile-mode))
 
+(use-package vterm
+  :commands vterm
+  :config
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
+  ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
+  (setq vterm-max-scrollback 10000))
+
+(when (eq system-type 'windows-nt)
+  (setq explicit-shell-file-name "powershell.exe")
+  (setq explicit-powershell.exe-args '()))
+
+
+(use-package pyvenv
+  :after python-mode
+  :config
+  (pyvenv-mode 1))
+
 ;; To save register between sessions
 ;; https://emacs.stackexchange.com/a/17475/31354
 (desktop-save-mode)
@@ -312,7 +329,7 @@
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
  '(package-selected-packages
-   '(ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
+   '(vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
    '((setq write-file-hooks nil)
      (eval custom-set-variables
