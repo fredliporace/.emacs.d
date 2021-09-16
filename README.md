@@ -23,6 +23,13 @@ Identity added: ***
 
 Currently the push operation must be done from WPS.
 
+## pyvenv
+
+Example for .dir-locals.el to activate venv automatically:
+```
+((nil . ((pyvenv-activate . "~/ve/project"))))
+```
+
 ## key bindings
 
 ```
