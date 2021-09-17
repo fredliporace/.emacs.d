@@ -234,9 +234,14 @@
   :config
   (pyvenv-mode 1))
 
-;; To save register between sessions
-;; https://emacs.stackexchange.com/a/17475/31354
-(desktop-save-mode)
+;; Save registers between sessions
+;; https://emacs.stackexchange.com/a/29937
+;; don't use desktop mode for terminal
+(when (display-graphic-p)
+  (desktop-save-mode);; is x window
+  ())
+;; Add variables to desktop saving
+(add-to-list 'desktop-globals-to-save 'register-alist)
 
 ;;Old theme configuration
 ;;(load-theme 'material t) ;; load material theme
@@ -329,7 +334,7 @@
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
  '(package-selected-packages
-   '(vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
+   '(desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
    '((setq write-file-hooks nil)
      (eval custom-set-variables
@@ -425,11 +430,12 @@
 (global-set-key (kbd "C-x M-g") 'magit-dispatch)
 
 ;; hideshow
-(defun my-hide-all()
-  (interactive)
-  (hs-minor-mode)
-  (hs-hide-all))
-(add-hook 'prog-mode-hook 'my-hide-all)
+;; This is taking too long with EXWM, disabling for now
+;; (defun my-hide-all()
+;;   (interactive)
+;;   (hs-minor-mode)
+;;   (hs-hide-all))
+;; (add-hook 'prog-mode-hook 'my-hide-all)
 ;;hiding block of code
 (global-set-key (kbd "C-c h") (kbd "C-c @ C-h"))
 ;;show block of code
