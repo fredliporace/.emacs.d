@@ -8,3 +8,4 @@ elpy
 /projectile-bookmarks.eld
 /*.lock
 /.emacs.desktop
+/.emacs_workgroups
