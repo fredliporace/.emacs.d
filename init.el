@@ -187,7 +187,7 @@
   (ivy-prescient-enable-filtering nil)
   :config
   ;; Uncomment the following line to have sorting remembered across sessions!
-  ;(prescient-persist-mode 1)
+  (prescient-persist-mode 1)
   (ivy-prescient-mode 1))
 
 (use-package helpful
@@ -228,20 +228,33 @@
   (setq explicit-shell-file-name "powershell.exe")
   (setq explicit-powershell.exe-args '()))
 
-
 (use-package pyvenv
   :after python-mode
   :config
   (pyvenv-mode 1))
 
+;; Configuration below is not from daviwil/emacs-from-scratch
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Not sure if this is required
 ;; Save registers between sessions
-;; https://emacs.stackexchange.com/a/29937
+(desktop-save-mode)
+
+;; https://github.com/pashinin/workgroups2
+(use-package workgroups2
+  :config
+  (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
+  (workgroups-mode 1)
+)
+
+
+;; Remove, replaced by workgroups2
 ;; don't use desktop mode for terminal
-(when (display-graphic-p)
-  (desktop-save-mode);; is x window
-  ())
-;; Add variables to desktop saving
-(add-to-list 'desktop-globals-to-save 'register-alist)
+;; (when (display-graphic-p)
+;;   (desktop-save-mode);; is x window
+;;   ())
+;; ;; Add variables to desktop saving
+;; (add-to-list 'desktop-globals-to-save 'register-alist)
 
 ;;Old theme configuration
 ;;(load-theme 'material t) ;; load material theme
@@ -334,13 +347,14 @@
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
  '(package-selected-packages
-   '(desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
+   '(workgroups2 desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
    '((setq write-file-hooks nil)
      (eval custom-set-variables
            '(flycheck-python-pycompile-executable "python3")
            '(flycheck-python-pylint-executable "python3"))
-     (py-indent-offset . 4))))
+     (py-indent-offset . 4)))
+ '(wg-session-file "~/.emacs.d/.emacs_workgroups"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
