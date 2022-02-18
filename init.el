@@ -335,6 +335,11 @@
 ;; http://code.litomisky.com/2014/10/24/getting-with-pylint-in-emacs/
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+;; python-pytest
+;; https://github.com/wbolster/emacs-python-pytest
+(use-package python-pytest)
+(global-set-key (kbd "C-x j") 'python-pytest-dispatch)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -347,7 +352,7 @@
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
  '(package-selected-packages
-   '(workgroups2 desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
+   '(python-pytest workgroups2 desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
    '((setq write-file-hooks nil)
      (eval custom-set-variables
