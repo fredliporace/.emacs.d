@@ -337,7 +337,14 @@
 
 ;; python-pytest
 ;; https://github.com/wbolster/emacs-python-pytest
-(use-package python-pytest)
+(use-package python-pytest
+  :config
+  ;; --runslow custom option
+  (transient-append-suffix
+    'python-pytest-dispatch
+    '(-2)
+    ["My custom options"
+     ("--rs" "Run slow tests" "--runslow")]))
 (global-set-key (kbd "C-x j") 'python-pytest-dispatch)
 
 (custom-set-variables
