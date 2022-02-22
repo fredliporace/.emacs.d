@@ -359,7 +359,7 @@
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pylint-executable "python3")
  '(package-selected-packages
-   '(python-pytest workgroups2 desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
+   '(markdown-mode python-pytest workgroups2 desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
  '(safe-local-variable-values
    '((setq write-file-hooks nil)
      (eval custom-set-variables
@@ -380,8 +380,6 @@
 (add-hook 'c++-mode-hook #'(lambda () (setq flycheck-checker 'c/c++-gcc)))
 
 ;; markdown & friends
-;; @todo check if 'use-package is used only here
-(require 'use-package)
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
