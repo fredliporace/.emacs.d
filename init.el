@@ -104,7 +104,8 @@
                 term-mode-hook
                 shell-mode-hook
                 treemacs-mode-hook
-                eshell-mode-hook))
+                eshell-mode-hook
+                vterm-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
@@ -238,6 +239,11 @@
 
 ;; Not sure if this is required
 ;; Save registers between sessions
+
+;; Move customization variables to a separate file and load it
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(load custom-file 'noerror 'nomessage)
+
 (desktop-save-mode)
 
 ;; https://github.com/pashinin/workgroups2
@@ -347,33 +353,6 @@
      ("--rs" "Run slow tests" "--runslow")]))
 (global-set-key (kbd "C-x j") 'python-pytest-dispatch)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-package-update-hide-results t)
- '(auto-package-update-interval 7)
- '(auto-package-update-prompt-before-update t)
- '(flycheck-checker-error-threshold 1000)
- '(flycheck-python-pycompile-executable "python3")
- '(flycheck-python-pylint-executable "python3")
- '(package-selected-packages
-   '(markdown-mode python-pytest workgroups2 desktop-environment exwm vterm ivy-prescient helpful all-the-icons doom-themes impatient-mode flymd flycheck flx-isearch))
- '(safe-local-variable-values
-   '((setq write-file-hooks nil)
-     (eval custom-set-variables
-           '(flycheck-python-pycompile-executable "python3")
-           '(flycheck-python-pylint-executable "python3"))
-     (py-indent-offset . 4)))
- '(wg-session-file "~/.emacs.d/.emacs_workgroups"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 ;; pylint as default python checker
 (add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
 ;; gcc as default C++ checker
@@ -479,6 +458,20 @@
       (with-current-buffer buffer
         (when (equal default-directory dir)
           (my-reload-dir-locals-for-current-buffer))))))
+
+;; activating recentf-mode
+(recentf-mode 1)
+
+;; remember and restore the last cursor location of opened files
+(save-place-mode 1)
+
+;; don't use pop up UI dialogs when prompting
+(setq use-dialog-box nil)
+
+;; revert buffers when the underlying file name has changed
+(global-auto-revert-mode 1)
+;; revert Dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
 
 (provide 'init)
 ;;; init.el ends here

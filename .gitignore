@@ -9,3 +9,4 @@ elpy
 /*.lock
 /.emacs.desktop
 /.emacs_workgroups
+/flycheck_init.el
