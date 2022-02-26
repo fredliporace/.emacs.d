@@ -59,11 +59,11 @@
 (defvar myPackages
   '(better-defaults
     ;;material-theme ; old theme
-    elpy
+    ;; elpy
     yaml-mode
     markdown-mode
     impatient-mode
-    flycheck
+    ;; flycheck
     ace-window
     irony
     pytest
@@ -329,17 +329,29 @@
       (select-frame frame)
       (select-window win))))
 
-;; Enable el-py
-(elpy-enable)
+;; elpy
+;; Elpy creates its own ve under ~/.emacs.d/elpy/rpc-venv. It seems to update
+;; this ve when required. I'm currently using flycheck to code check.
+(use-package elpy
+:ensure t
+:init
+(elpy-enable))
 
+;; flycheck
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 ;; Enable flycheck for elpy
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
-
 ;; Enable flycheck
 ;; http://code.litomisky.com/2014/10/24/getting-with-pylint-in-emacs/
 (add-hook 'after-init-hook #'global-flycheck-mode)
+;; pylint as default python checker
+(add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
+;; gcc as default C++ checker
+(add-hook 'c++-mode-hook #'(lambda () (setq flycheck-checker 'c/c++-gcc)))
 
 ;; python-pytest
 ;; https://github.com/wbolster/emacs-python-pytest
@@ -353,10 +365,6 @@
      ("--rs" "Run slow tests" "--runslow")]))
 (global-set-key (kbd "C-x j") 'python-pytest-dispatch)
 
-;; pylint as default python checker
-(add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
-;; gcc as default C++ checker
-(add-hook 'c++-mode-hook #'(lambda () (setq flycheck-checker 'c/c++-gcc)))
 
 ;; markdown & friends
 (use-package markdown-mode
@@ -472,6 +480,10 @@
 (global-auto-revert-mode 1)
 ;; revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
+
+;; Turn debug on to check sentinel peculiar errors
+;; (setq debug-on-error t)
+(setq debug-on-error nil)
 
 (provide 'init)
 ;;; init.el ends here

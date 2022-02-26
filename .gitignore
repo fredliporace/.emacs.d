@@ -10,3 +10,7 @@ elpy
 /.emacs.desktop
 /.emacs_workgroups
 /flycheck_init.el
+/custom-vars.el
+/places
+/recentf
+/var/
