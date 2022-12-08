@@ -2,6 +2,12 @@
 
 My emacs configuration
 
+## Recovering from ELPY errors in initialization
+
+* Remove `.emacs.d/elpy/rpc-venv`
+* Start emacs from base conda environment, close all buffers.
+* Open test .py file and let emacs install rpc-env dependencies.
+
 ## Windows cygwin notes
 
 To install the fonts copy the ```.ttf``` files to ```/usr/share/fonts/microsoft``` and run ```/etc/postinstall/zp_fontconfig_cache_1.sh``` [reference](https://stackoverflow.com/questions/50748216/how-do-i-use-third-party-ttf-fonts-on-cygwinx-how-about-windows-fonts).
