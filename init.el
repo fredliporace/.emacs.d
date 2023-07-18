@@ -68,9 +68,6 @@
     irony
     pytest
     magit
-    js2-mode
-    js2-refactor
-    xref-js2
     use-package))
 
 (mapc #'(lambda (package)
@@ -457,17 +454,44 @@
 (use-package pytest)
 
 ;; Javascript configuration
-;; https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
-(js2r-add-keybindings-with-prefix "C-c C-r")
-(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
-;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
-;; unbind it.
-(define-key js-mode-map (kbd "M-.") nil)
-(add-hook 'js2-mode-hook (lambda ()
-  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+;; https://www.draketo.de/software/emacs-javascript.html
+(use-package js2-mode :ensure t :defer 20
+  :mode
+  (("\\.js\\'" . js2-mode))
+  :custom
+  (js2-include-node-externs t)
+  (js2-global-externs '("customElements"))
+  (js2-highlight-level 3)
+  (js2r-prefer-let-over-var t)
+  (js2r-prefered-quote-type 2)
+  (js-indent-align-list-continuation t)
+  (global-auto-highlight-symbol-mode t)
+  :config
+  (setq js-indent-level 2)
+  ;; patch in basic private field support
+  (advice-add #'js2-identifier-start-p
+            :after-until
+            (lambda (c) (eq c ?#))))
+
+(use-package js2-refactor :ensure t :defer 30
+  :config
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c C-m"))
+;; context menu for keybindings
+(use-package discover :ensure t :defer 30
+  :config
+  (global-discover-mode 1))
+
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+;; (add-hook 'js2-mode-hook #'js2-refactor-mode)
+;; (js2r-add-keybindings-with-prefix "C-c C-r")
+;; (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+;; ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+;; ;; unbind it.
+;; (define-key js-mode-map (kbd "M-.") nil)
+;; (add-hook 'js2-mode-hook (lambda ()
+;;   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
