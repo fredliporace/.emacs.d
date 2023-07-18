@@ -7,6 +7,7 @@ My emacs configuration
 * Remove `.emacs.d/elpy/rpc-venv`
 * Start emacs from base conda environment, close all buffers.
 * Open test .py file and let emacs install rpc-env dependencies.
+* Option to install rpc-env again: ```M-x elpy-rpc-reinstall-virtualenv```
 
 ## Windows cygwin notes
 
